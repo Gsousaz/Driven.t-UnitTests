@@ -2,7 +2,7 @@ import { prisma } from "@/config";
 
 async function getBookingUser(id: number) {
     const booking = await prisma.booking.findFirst({
-        where: { id },
+        where: { userId:id },
         include: { Room: true },
     });
 
