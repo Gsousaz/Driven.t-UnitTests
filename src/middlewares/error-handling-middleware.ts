@@ -68,8 +68,8 @@ export function handleApplicationErrors(
     });
   }
 
-  if (err.name === 'ConflictError' || err.name === 'DuplicatedEmailError') {
-    return res.status(httpStatus.CONFLICT).send({
+  if (err.name === 'Forbidden') {
+    return res.status(httpStatus.FORBIDDEN).send({
       message: err.message,
     });
   }
