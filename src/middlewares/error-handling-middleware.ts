@@ -68,6 +68,12 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === 'ConflictError' || err.name === 'DuplicatedEmailError') {
+    return res.status(httpStatus.CONFLICT).send({
+      message: err.message,
+    });
+  }
+
   /* eslint-disable-next-line no-console */
   console.error(err);
   res.status(httpStatus.INTERNAL_SERVER_ERROR).send({

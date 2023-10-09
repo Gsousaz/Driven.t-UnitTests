@@ -11,15 +11,26 @@ async function showBooking(req: AuthenticatedRequest, res: Response) {
     return res.status(httpStatus.OK).send(showBooking);
 }
 
+
 export async function createBooking(req: AuthenticatedRequest, res: Response) {
-  const { userId } = req;
-  const { roomId } = req.body;
+    const { userId } = req;
+    const { roomId } = req.body;
 
-  const booking = await bookingsService.createBooking(roomId, userId);
-  res.status(httpStatus.OK).json({ bookingId: booking.id });
-}  
+    const booking = await bookingsService.createBooking(roomId, userId);
+    res.status(httpStatus.OK).json({ bookingId: booking.id });
+}
 
-  export const bookingsController = {
+export const bookingsController = {
     showBooking,
     createBooking
 };
+
+
+export async function updateBooking(req: AuthenticatedRequest, res: Response) {
+    const { userId } = req;
+    const bookingId = req.params.bookingId;
+    const { roomId } = req.body;
+
+    const bookingUpdated = await bookingsService.updateBooking(userId, Number(bookingId), roomId);
+    res.status(httpStatus.OK).json({ bookingId: bookingUpdated.id });
+}
